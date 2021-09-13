@@ -195,8 +195,8 @@ def start_presto_query(presto_server, presto_user, presto_catalog, presto_schema
             # CREATE FUNCTION
             create_function_sql = \
                 """
-                create or replace function pg_temp_1.%s()
-                returns setof pg_temp_1.%s as $$
+                create or replace function %s()
+                returns setof %s as $$
                     import prestogres
                     return prestogres.fetch_presto_query_results()
                 $$ language plpythonu
@@ -204,7 +204,7 @@ def start_presto_query(presto_server, presto_user, presto_catalog, presto_schema
                 (plpy.quote_ident(function_name), plpy.quote_ident(type_name))
 
             # run statements
-            plpy.execute("drop table if exists pg_temp_1.%s cascade" % \
+            plpy.execute("drop table if exists %s cascade" % \
                     (plpy.quote_ident(type_name)))
             plpy.execute(create_type_sql)
             plpy.execute(create_function_sql)
