@@ -155,17 +155,17 @@ class PrestoQueryException(PrestoException):
         self.failure_info = failure_info
 
 class PrestoHeaders(object):
-    PRESTO_USER = "X-Presto-User"
-    PRESTO_SOURCE = "X-Presto-Source"
-    PRESTO_CATALOG = "X-Presto-Catalog"
-    PRESTO_SCHEMA = "X-Presto-Schema"
-    PRESTO_TIME_ZONE = "X-Presto-Time-Zone"
-    PRESTO_LANGUAGE = "X-Presto-Language"
+    PRESTO_USER = "X-Trino-User"
+    PRESTO_SOURCE = "X-Trino-Source"
+    PRESTO_CATALOG = "X-Trino-Catalog"
+    PRESTO_SCHEMA = "X-Trino-Schema"
+    PRESTO_TIME_ZONE = "X-Trino-Time-Zone"
+    PRESTO_LANGUAGE = "X-Trino-Language"
 
-    PRESTO_CURRENT_STATE = "X-Presto-Current-State"
-    PRESTO_MAX_WAIT = "X-Presto-Max-Wait"
-    PRESTO_MAX_SIZE = "X-Presto-Max-Size"
-    PRESTO_PAGE_SEQUENCE_ID = "X-Presto-Page-Sequence-Id"
+    PRESTO_CURRENT_STATE = "X-Trino-Current-State"
+    PRESTO_MAX_WAIT = "X-Trino-Max-Wait"
+    PRESTO_MAX_SIZE = "X-Trino-Max-Size"
+    PRESTO_PAGE_SEQUENCE_ID = "X-Trino-Page-Sequence-Id"
 
 class StatementClient(object):
     HEADERS = {
