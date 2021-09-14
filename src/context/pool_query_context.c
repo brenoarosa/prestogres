@@ -2106,6 +2106,7 @@ static void run_and_rewrite_presto_query(POOL_SESSION_CONTEXT* session_context, 
 	buffer = strcpy_capped(buffer, bufend - buffer, "', E'");
 	buffer = strcpy_capped_escaped(buffer, bufend - buffer, presto_schema, "'\\");
 	buffer = strcpy_capped(buffer, bufend - buffer, "', E'");
+    // TODO: CREATE RANDOM FUNCTION NAME AND DONT SAVE TO TEMP? NEEDS TO CLEAN IT?
 	buffer = strcpy_capped_escaped(buffer, bufend - buffer, PRESTO_FETCH_FUNCTION_NAME, "'\\");
 	buffer = strcpy_capped(buffer, bufend - buffer, "', E'");
 	{
@@ -2184,7 +2185,7 @@ static void run_and_rewrite_presto_query(POOL_SESSION_CONTEXT* session_context, 
 	if (fragments.prefix) {
 		buffer = strcpy_capped(buffer, bufend - buffer, fragments.prefix);
 	}
-	buffer = strcpy_capped(buffer, bufend - buffer, "select * from pg_temp." PRESTO_FETCH_FUNCTION_NAME "()");
+	buffer = strcpy_capped(buffer, bufend - buffer, "select * from " PRESTO_FETCH_FUNCTION_NAME "()");
 	if (fragments.suffix) {
 		buffer = strcpy_capped(buffer, bufend - buffer, fragments.suffix);
 	}
