@@ -206,8 +206,13 @@ def start_presto_query(presto_server, presto_user, presto_catalog, presto_schema
             # run statements
             plpy.execute("drop table if exists %s cascade" % \
                     (plpy.quote_ident(type_name)))
+
+            plpy.info("Executing: %s" % create_type_sql )
             plpy.execute(create_type_sql)
+            plpy.info("Executed create_type_sql!")
+            plpy.info("Executing: %s" % create_function_sql )
             plpy.execute(create_function_sql)
+            plpy.info("Executed create_function_sql!")
 
             query = None
 
