@@ -2184,7 +2184,7 @@ static void run_and_rewrite_presto_query(POOL_SESSION_CONTEXT* session_context, 
 	if (fragments.prefix) {
 		buffer = strcpy_capped(buffer, bufend - buffer, fragments.prefix);
 	}
-	buffer = strcpy_capped(buffer, bufend - buffer, "select * from " PRESTO_FETCH_FUNCTION_NAME "()");
+	buffer = strcpy_capped(buffer, bufend - buffer, "select * from pg_temp." PRESTO_FETCH_FUNCTION_NAME "()");
 	if (fragments.suffix) {
 		buffer = strcpy_capped(buffer, bufend - buffer, fragments.suffix);
 	}

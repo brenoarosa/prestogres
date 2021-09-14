@@ -188,6 +188,12 @@ def start_presto_query(presto_server, presto_user, presto_catalog, presto_schema
             session.query_auto_close.column_names = column_names
             session.query_auto_close.column_types = column_types
 
+            # FIRST TRY RANDOM FUNCTION NAME
+            #########################
+            temp_test_table_sql = "CREATE TEMPORARY TABLE IF NOT EXISTS test();"
+            plpy.execute(temp_test_table_sql)
+            ##########################
+
             # CREATE TABLE for return type of the function
             type_name = function_name + "_type"
             create_type_sql = _build_create_temp_table_sql(type_name, column_names, column_types)
