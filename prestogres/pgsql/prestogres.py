@@ -196,7 +196,7 @@ def start_presto_query(presto_server, presto_user, presto_catalog, presto_schema
             create_function_sql = \
                 """
                 create or replace function pg_temp.%s()
-                returns setof %s as $$
+                returns setof pg_temp.%s as $$
                     import prestogres
                     return prestogres.fetch_presto_query_results()
                 $$ language plpythonu
