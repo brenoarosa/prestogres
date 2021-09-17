@@ -2090,7 +2090,17 @@ static void run_and_rewrite_presto_query(POOL_SESSION_CONTEXT* session_context, 
 	POOL_SELECT_RESULT *res;
 	POOL_CONNECTION *con;
 	POOL_CONNECTION_POOL *backend = session_context->backend;
-	con = CONNECTION(backend, session_context->load_balance_node_id);
+    // #define CONNECTION_SLOT(p, slot) ((p)->slots[(slot)])
+    // #define CONNECTION(p, slot) (CONNECTION_SLOT(p, slot)->con)
+    // deveriam ser iguais?
+    // (gdb) p session_context->backend->slots[0]->con
+    // $39 = (POOL_CONNECTION *) 0x55f7c855b4a0
+    // (gdb) p backend
+    // $24 = (POOL_CONNECTION *) 0x55f700000000
+
+	// con = CONNECTION(backend, session_context->load_balance_node_id);
+	con = backend->slots[session_context->load_balance_node_id]->con;
+
 	char* original_query = pstrdup(query_context->original_query);
 
 	/* build start_presto_query */
