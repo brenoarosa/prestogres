@@ -2309,6 +2309,8 @@ void do_query_or_get_error_message(POOL_CONNECTION *backend, char *query, POOL_S
 	int num_close_complete;
 	int state;
 
+	ereport(DEBUG1, (errmsg(">>>>>> backend addr 01: %p", backend)));
+
 	doing_extended = pool_get_session_context(true) && pool_is_doing_extended_query_message();
 
 	ereport(DEBUG1,
@@ -2325,6 +2327,8 @@ void do_query_or_get_error_message(POOL_CONNECTION *backend, char *query, POOL_S
 
 	res->nullflags = palloc(DO_QUERY_ALLOC_NUM*sizeof(int));
 	res->data = palloc0(DO_QUERY_ALLOC_NUM*sizeof(char *));
+
+	ereport(DEBUG1, (errmsg(">>>>>> backend addr 02: %p", backend)));
 
 	/*
 	 * Send a query to the backend. We use extended query proctocol
@@ -2432,7 +2436,9 @@ void do_query_or_get_error_message(POOL_CONNECTION *backend, char *query, POOL_S
 	}
 	else
 	{
+	    ereport(DEBUG1, (errmsg(">>>>>> backend addr 03: %p", backend)));
 		send_simplequery_message(backend, strlen(query) + 1, query, major);
+	    ereport(DEBUG1, (errmsg(">>>>>> backend addr 04: %p", backend)));
 	}
 
 	/*
