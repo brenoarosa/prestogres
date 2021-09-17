@@ -2171,10 +2171,10 @@ static void run_and_rewrite_presto_query(POOL_SESSION_CONTEXT* session_context, 
 	/* run query */
 	PG_TRY();
 	{
-        ereport(DEBUG1, (errmsg(">>>>>> backend con addr [run_and_rewrite_presto_query:2171]: %p", con)));
+		// ereport(DEBUG1, (errmsg(">>>>>> backend con addr [run_and_rewrite_presto_query:2174]: %p", con)));
 		do_query_or_get_error_message(con,
 				rewrite_query_string_buffer, &res, MAJOR(backend), &message, &errcode);
-        ereport(DEBUG1, (errmsg(">>>>>> backend con addr [run_and_rewrite_presto_query:2177]: %p", con)));
+		// ereport(DEBUG1, (errmsg(">>>>>> backend con addr [run_and_rewrite_presto_query:2177]: %p", con)));
 	}
 	PG_CATCH();
 	{
