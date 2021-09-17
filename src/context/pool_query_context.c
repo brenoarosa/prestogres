@@ -2090,17 +2090,8 @@ static void run_and_rewrite_presto_query(POOL_SESSION_CONTEXT* session_context, 
 	POOL_SELECT_RESULT *res;
 	POOL_CONNECTION *con;
 	POOL_CONNECTION_POOL *backend = session_context->backend;
-    // #define CONNECTION_SLOT(p, slot) ((p)->slots[(slot)])
-    // #define CONNECTION(p, slot) (CONNECTION_SLOT(p, slot)->con)
-    // deveriam ser iguais?
-    // (gdb) p session_context->backend->slots[0]->con
-    // $39 = (POOL_CONNECTION *) 0x55f7c855b4a0
-    // (gdb) p backend
-    // $24 = (POOL_CONNECTION *) 0x55f700000000
-
-	// con = CONNECTION(backend, session_context->load_balance_node_id);
-	con = backend->slots[session_context->load_balance_node_id]->con;
-	ereport(DEBUG1, (errmsg(">>>>>> backend con addr [run_and_rewrite_presto_query:2103]: %p", con)));
+	con = CONNECTION(backend, session_context->load_balance_node_id);
+	ereport(DEBUG1, (errmsg(">>>>>> backend con addr [run_and_rewrite_presto_query:2094]: %p", con)));
 
 	char* original_query = pstrdup(query_context->original_query);
 
@@ -2171,10 +2162,10 @@ static void run_and_rewrite_presto_query(POOL_SESSION_CONTEXT* session_context, 
 	/* run query */
 	PG_TRY();
 	{
-		// ereport(DEBUG1, (errmsg(">>>>>> backend con addr [run_and_rewrite_presto_query:2174]: %p", con)));
+		ereport(DEBUG1, (errmsg(">>>>>> backend con addr [run_and_rewrite_presto_query:2165]: %p", con)));
 		do_query_or_get_error_message(con,
 				rewrite_query_string_buffer, &res, MAJOR(backend), &message, &errcode);
-		// ereport(DEBUG1, (errmsg(">>>>>> backend con addr [run_and_rewrite_presto_query:2177]: %p", con)));
+		ereport(DEBUG1, (errmsg(">>>>>> backend con addr [run_and_rewrite_presto_query:2168]: %p", con)));
 	}
 	PG_CATCH();
 	{
